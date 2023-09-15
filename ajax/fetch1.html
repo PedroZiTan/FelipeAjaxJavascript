@@ -1,0 +1,31 @@
+<!-- função fetch() em JavaScript é usada para fazer requisições de rede assíncronas, geralmente para recuperar recursos de um servidor. 
+É amplamente utilizada para buscar dados de APIs da web e interagir com serviços externos.
+
+O fetch() retorna uma Promise que é resolvida quando a resposta da requisição é recebida do servidor. 
+Essa resposta pode ser tratada e manipulada usando métodos de Promise, como .then() = manipular os dados e .catch() = pegar  os erros, se der errado. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Fetch API #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>Estados</h1>
+
+    <script>
+        const url = 'dados/estados.json'
+        fetch(url)
+            .then(resposta => resposta.json())
+            .then(estados => {
+                const itens = estados.reduce(
+                    (html, estado) => html + `<li>${estado.nome}</li>`
+                )
+                document.body.insertAdjacentHTML("beforeend", `<ul>${itens}</ul>`)
+            })
+    </script>
+</body>
+

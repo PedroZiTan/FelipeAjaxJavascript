@@ -1,0 +1,69 @@
+200 Ok:A requisição foi bem sucedida.
+201 Created: A requisição foi completamente processada pelo servidor e um ou mais recursos foram criados em decorrência disso.
+202 Accepted: A requisição foi recebida pelo servidor, mas ainda não foi completamente processada. Geralmente, o servidor responde com alguma forma do cliente acompanhar quando essa requisição será completamente processada.
+203 Non-authoritative Information: Indica sucesso no recebimento dos dados, mas que alguma meta informação na resposta não condiz com aquelas disponíveis no servidor.
+204 No Content: O servidor não possui conteúdo que possa ser adicionado a resposta, mas os cabeçalhos presentes podem ser úteis.
+205 Reset Content: Diz ao user-agent que este deve atualizar a página, reiniciar o estado de um canvas ou algo que forneça ao cliente uma nova representação do documento apresentado.
+206 Partial Content: O servidor forneceu satisfatoriamente uma parte do recurso requisitado pelo cliente, de acordo com o valor determinado pelo header Range.
+207 Multi-Status: Fornece o código de estado de múltiplos recursos sendo acessados, quando disponíveis.
+208 Already Reported: DAV (distributed authoring and versioning) é uma extensão do HTTP usada na transferência de arquivos. Quando múltiplos elementos são acessados dessa forma esse status pode ser utilizado para enumerar o estado dos elementos subsequentes após 200 Ok ter sido utilizado para o primeiro.
+226 Im Used: O servidor atendeu a requisição feita via GET, mas uma representação atual do recurso que está sendo acessado pode não estar disponível. Em lugar, o servidor envia uma instância manipulada do recurso que pode ou não corresponder ao seu estado atual.
+Redirection
+A requisição foi recebida, mas o servidor precisou realizar algum tipo de redirecionamento.
+
+300 Multiple Choices:Mais de uma representação para o recurso solicitado foi encontrada, cabendo ao cliente identificar qual deve ser utilizado a partir de uma lista de identificadores ou informações sobre o recurso.
+301 Moved Permanently: O recurso está disponível em uma nova URI e deve ser acessado por ela em novas requisições.
+302 Found: O recurso está disponível em uma nova URL, mas isso pode ser temporário.
+303 See Other: O servidor está redirecionando o user-agent para um novo recurso que proverá, indiretamente, a representação do recurso solicitado.
+304 Not Modified: Não há razão para o servidor enviar uma nova representação do recurso solicitado pelo cliente, pois a cópia que ele possui ainda é válida.
+305 Use Proxy: Esse header foi removido em especificações atuais por preocupações com segurança.
+307 Temporary Redirect: O recurso foi movido temporariamente para uma outra URI, mas o cliente deve continuar utilizando o mesmo método HTTP se este cria um redirecionamento automático para esta nova URI.
+308 Permanent Redirect: O recurso foi movido para uma nova URI, geralmente indicada no header Location. O cliente deve utilizar esse endereço em suas próximas requisições.
+Client Erros
+Códigos nesse range geralmente indicam um problema nas informações enviadas pelo cliente.
+
+400 Bad Request:O servidor não vai processar a requisição por um erro nas informações enviadas pelo cliente. Uma URL mal formada ou dados inválidos são alguns exemplos.
+401 Unauthorized: O cliente não forneceu as credenciais corretas para acessar o recurso.
+402 Payment Required: Esse código ainda não foi implementado e está reservado para uso em uma próxima especificação.
+403 Forbidden: O servidor recebeu a requisição, mas se negou a autorizá-la.
+404 Not Found: O servidor não encontrou uma representação atual do recurso solicitado.
+405 Method Not Allowed: O método utilizado pelo cliente é inteligível pelo servidor, mas não pode ser utilizado para o recurso solicitado.
+406 Not Acceptable: O recurso solicitado não possui uma representação que possa ser aceita pelo cliente. Nesses casos podemos avaliar a necessidade de alterar os valores dos headers Accept, Accept-Charset, Accept-Encoding e Accept-Language.
+407 Proxy Authentication Required: Similar ao código 401 Unauthorized, mas indica que o cliente deve se autenticar para utilizar um proxy.
+408 Request Timeout: O servidor não recebeu completamente a requisição no tempo esperado.
+409 Conflict: Esse código é utilizado quando há um conflito entre os dados enviados pelo cliente e a representação atual do recurso solicitado. Geralmente esse código é utilizado quando o cliente pode resolver o problema e enviar uma nova requisição.
+410 Gone: O recurso não está mais disponível no servidor e essa condição tende a ser permanente.
+411 Length Required: O servidor vai se recusar a atender a requisição até que o header Content-Length seja fornecido.
+412 Precondition Failed: Um ou mais condições fornecidas nos cabeçalhos da requisição foram avaliadas como falsas quando testadas pelo servidor.
+413 Payload Too Large: Um ou mais metadados contidos na requisição é maior que a capacidade de processamento do servidor.
+414 Request-URI Too Long: O request-target, derivado a URI utilizada na requisição, é maior do que o servidor pode interpretar.
+415 Unsupported Media Type: O servidor se recusa a processar a requisição devido ao formato errado dos metadados adicionados a ela. Geralmente corrigir o valor dos headers Content-Type ou Content-Encoding pode corrigir o problema.
+416 Requested Range Not Satisfiable: Os valores utilizados no header Range ultrapassam ou são inválidos para o recurso solicitado.
+417 Expectation Failed: O valor do header Expect não pode ser encontrado por pelo menos um dos servidores.
+418 I'm a teapot: Esse código é na verdade uma piada. Significa que qualquer tentativa de fazer café com um bule de chá deve resultar neste erro :)
+421 Misdirected Request: A requisição foi enviada para um servidor que não é capaz de gerar respostas. Isso pode ser condicional dados os valores utilizadas para compor a URI atual.
+422 Unprocessable Entity: O servidor reconhece o conteúdo enviado, não podendo responder com um código 415 Unsupported Media Type, compreende a sintaxe dos dados, o que torna 400 Bad Request inapropriado, mas não pode processar esses dados ou dar informações sobre o erro.
+423 Locked: O recurso não pode ser acessado por estar bloqueado.
+424 Failed Dependency: O método não pode ser aplicado ao recurso, pois depende que uma outra ação tenha sido completada anteriormente e essa ação falhou.
+426 Upgrade Required: O servidor se recusou a processar a requisição porque o protocolo deveria ter sido alterado pelo cliente, de acordo com as instruções fornecidas anteriormente.
+428 Precondition Required: O servidor requer que a requisição seja condicional. Geralmente é usado para evitar que um recurso seja obtido via GET, modificado e atualizado via PUT, sendo que um outro agente o modificou neste intervalo.
+429 Too Many Requests: O cliente enviou mais requisições que o permitido em um determinado intervalo de tempo.
+431 Request Header Fields Too Large: O servidor não pode processar a requisição porque seus cabeçalhos têm valores longos demais. A requisição deve ser refeita após reduzir o tamanho desses campos.
+444 Connection Closed Without Response: Comumente utilizado para negar requisições maliciosas ou mal formadas.
+451 Unavailable For Legal Reasons: O conteúdo acessado foi removido do ar ou está inacessível devido a uma ação jurídica.
+499 Client Closed Request: O cliente encerrou a requisição enquanto o servidor ainda estava processando-a.
+Server Error
+Os códigos nesse intervalo correspondem a erros relacionados ao servidor.
+
+500 Internal Server Error:O servidor encontrou um condição inesperada que o impediu de atender completamente a requisição.
+501 Not Implemented: O servidor não dispõe da funcionalidade requerida para atender a requisição.
+502 Bad Gateway: O servidor, agindo como um gateway ou proxy, recebeu uma resposta inválida de um outro servidor acessado por ele para atender a requisição.
+503 Service Unavailable: O servidor não pode processar a requisição devido a uma condição de manutenção ou sobrecarga temporária.
+504 Gateway Timeout: O servidor precisa acessar um outro para atender a requisição, mas não obteve uma resposta no tempo estipulado.
+505 HTTP Version Not Supported: O servidor não suporta a versão do HTTP utilizada na requisição.
+506 Variant Also Negotiates: O servidor possui uma configuração interna conflitante que o impede de fornecer o conteúdo requisitado pelo cliente.
+507 Insufficient Storage: O método utilizado não pode ser aplicado sobre o recurso no servidor porque esse não dispõe de armazenamento suficiente.
+508 Loop Detected: O servidor encontrou um ciclo infinito de execução que o levou ao encerramento do processamento corrente.
+510 Not Extended: A regra de acesso ao recurso não foi encontrado na requisição. Geralmente o servidor responde com as informações necessários para o cliente realizar uma nova requisição com sucesso.
+511 Network Authentication Required: O cliente precisa se autenticar para ganhar acesso a rede.
+599 Network Connect Timeout Error: Não faz parte da especificação atual, mas é utilizado por proxies para indicar expiração no tempo de resposta.

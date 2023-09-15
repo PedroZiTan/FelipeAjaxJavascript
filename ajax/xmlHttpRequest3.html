@@ -1,0 +1,65 @@
+<!-- readyState    Holds the status of the XMLHttpRequest.
+0: request not initialized
+1: server connection established
+2: request received
+3: processing request
+4: request finished and response is ready
+
+O getElementsByTagName()método retorna uma coleção de todos os elementos com um nome de tag especificado.
+O reduce()método retorna um único valor: o resultado acumulado da função.
+O insertAdjacentElement()método insere um elemento em uma posição especificada.
+afterbegin    Após o início do elemento (primeiro filho)
+afterend    Depois do elemento
+beforebegin    antes do elemento
+beforeend    Antes do final do elemento (último filho) 
+Cria um novo Textnó. Este método pode ser usado para escapar de caracteres HTML.-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>XMLHttpRequest #03</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>Estados</h1>
+
+    <script>
+        function ajax(config){
+            const xhr = new XMLHttpRequest();
+            xhr.open(config.metodo, config.url, true)
+
+            xhr.onreadystatechange = e => {
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200){
+                         config.sucesso(xhr.responseXML)
+                    }else if (xhr.status >= 400){
+                        codigo.erro({
+                            codigo: xhr.status,
+                            texto: xhr.statusText
+                        })
+                    }
+                }
+            }
+            xhr.send()
+            
+        }
+        ajax({
+            url: "dados/estados.xml",
+            metodo: "get",
+            sucesso(resposta) {
+                const estados = resposta.getElementsByTagName("estado")
+                const itens = Array.from(estados).reduce(
+                    (html, estado) => html + `<li>${estado.attributes.nome.value}</li>`, ""
+                )
+                document.body.insertAdjacentHTML("beforeend", `<ul>${itens}</ul>`)
+            },
+            erro(e){
+                const msg = document.createTextNode(`${e.codigo}: ${e.texto}`)
+                document.body.appendChild(msg)
+            }
+        })
+    </script>
+</body>

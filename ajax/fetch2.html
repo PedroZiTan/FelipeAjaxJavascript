@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Fetch API #02</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form input,
+        form select,
+        form button {
+            margin: 10px;
+            font-size: 1.6em;
+        }
+    </style>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>Formulário Via Fetch</h1>
+    <form name="usuarioForm" action="formulario" method="post">
+        <input type="text" name="nome" placeholder="Nome..." />
+        <input type="text" name="sobrenome" placeholder="Sobrenome..." />
+        <button>Salvar</button>
+    </form>
+    <div id="resultado"></div>
+    <script>
+        document.usuarioForm.onsubmit = async e => {
+            e.preventDefault()
+            const form = e.target 
+            const data = new FormData(form)
+            data.append('ajax', true)
+
+            const options = {
+                method: form.method,
+                body: new URLSearchParams(data)
+            }
+            const resultado = document.getElementById('resultado')
+            // fetch(form.action, options)
+            //     .then(resp => resp.json())
+            //     .then(json => {
+            //         resultado.innerHTML = JSON.stringify(json)
+            //     }).catch(e => {
+            //         resultado.innerHTML = e
+            //     })
+            try{
+                const resp = await fetch(form.action, options)
+                const json = await resp.json()
+                // console.log(JSON.stringify(json))
+                resultado.innerHTML = JSON.stringify(json)
+            }catch(e){
+                resultado.innerHTML = e
+            }
+        }
+    </script>
+</body>
+
+<!-- Ao chamar a função preventDefault() em um evento, você está instruindo o navegador a
+não executar o comportamento padrão associado a esse evento específico.
+Isso pode ser útil em situações em que você deseja personalizar o comportamento de um evento ou adicionar lógica adicional antes de
+ permitir que o comportamento padrão ocorra.
+FormData é uma interface JavaScript que permite a criação e manipulação de dados de formulário em formato de pares chave/valor.
+É comumente usado para coletar os dados de um formulário HTML e enviá-los ao servidor por meio de uma solicitação HTTP, geralmente usando o método POST.
+
+Ao usar o objeto FormData, você pode criar facilmente um conjunto de pares chave/valor, onde as chaves correspondem aos nomes
+dos campos do formulário e os valores correspondem aos valores inseridos pelo usuário nos campos. 
+Ele também pode ser usado para anexar arquivos ao formulário.
+
+Ao chamar a função preventDefault() em um evento, você está instruindo o navegador a não executar o comportamento padrão associado a esse evento específico.
+Isso pode ser útil em situações em que você deseja personalizar o comportamento de um evento ou adicionar lógica 
+adicional antes de permitir que o comportamento padrão ocorra.
+FormData é uma interface JavaScript que permite a criação e manipulação de dados de formulário em formato de pares chave/valor. 
+É comumente usado para coletar os dados de um formulário HTML e enviá-los ao servidor por meio de uma solicitação HTTP, geralmente usando o método POST.
+
+Ao usar o objeto FormData, você pode criar facilmente um conjunto de pares chave/valor, 
+onde as chaves correspondem aos nomes dos campos do formulário e os valores correspondem aos valores inseridos pelo usuário nos campos.
+Ele também pode ser usado para anexar arquivos ao formulário. -->
